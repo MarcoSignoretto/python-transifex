@@ -275,12 +275,20 @@ class TransifexAPI(object):
 		query = {
 			'file': ''
 		}
+		print(f"url: {url}")
+		print(f"output_path: {output_path}")
+		print(f"query: {query}")
+
 		response = requests.get(url, auth=self._auth, params=query)
+		print(f"response: {response.status_code}")
+		print(response.content)
+
 		if response.status_code != requests.codes['OK']:
 			raise TransifexAPIException(response)
 		else:
-			handle = open(output_path, 'w')
+			handle = open(output_path, 'wb')
 			for line in response.iter_content():
+				print(f"line: {line}")
 				handle.write(line)
 			handle.close()
 
